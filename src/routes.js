@@ -1,47 +1,43 @@
-// Route untuk mendapatkan data gambar
-server.route({
-    method: 'GET',
-    path: '/images/{imageId}',
-    handler: async (request, h) => {
-        // Handler untuk mendapatkan data gambar
-        const imageId = request.params.imageId;
-        const imageDoc = await firestore.collection('images').doc(imageId).get();
-        if (!imageDoc.exists) {
-            return { error: 'Image not found' };
-        }
-        const imageData = imageDoc.data();
-        return imageData;
-    }
-});
+const { getImageData, getPredictionData, getAnalysisData, uploadImage } = require('./handler');
 
-// Route untuk mendapatkan data prediksi
-server.route({
-    method: 'GET',
-    path: '/predictions/{predictionId}',
-    handler: async (request, h) => {
-        // Handler untuk mendapatkan data prediksi
-        const predictionId = request.params.predictionId;
-        const predictionDoc = await firestore.collection('predictions').doc(predictionId).get();
-        if (!predictionDoc.exists) {
-            return { error: 'Prediction not found' };
-        }
-        const predictionData = predictionDoc.data();
-        return predictionData;
-    }
-});
+const routes = [
+    {
+        method: 'POST',
+        path: '/upload',
+        handler: async (request, h) => {
+            try {
+                const file = request.payload;
+                const fileName = await uploadImage(file);
+                return { fileName };
+            } catch (error) {
+                return h.response({ error: 'Failed to upload image' }).code(500);
+            }
+        },
+    },
+    {
+        method: 'GET',
+        path: '/images/{imageId}',
+        handler: async (request, h) => {
+            const imageId = request.params.imageId;
+            return await getImageData(imageId);
+        },
+    },
+    {
+        method: 'GET',
+        path: '/predictions/{predictionId}',
+        handler: async (request, h) => {
+            const predictionId = request.params.predictionId;
+            return await getPredictionData(predictionId);
+        },
+    },
+    {
+        method: 'GET',
+        path: '/analysis/{analysisId}',
+        handler: async (request, h) => {
+            const analysisId = request.params.analysisId;
+            return await getAnalysisData(analysisId);
+        },
+    },
+];
 
-// Route untuk mendapatkan data analisis
-server.route({
-    method: 'GET',
-    path: '/analysis/{analysisId}',
-    handler: async (request, h) => {
-        // Handler untuk mendapatkan data analisis
-        const analysisId = request.params.analysisId;
-        const analysisDoc = await firestore.collection('analysis').doc(analysisId).get();
-        if (!analysisDoc.exists) {
-            return { error: 'Analysis not found' };
-        }
-        const analysisData = analysisDoc.data();
-        return analysisData;
-    }
-});
+module.exports = routes;
