@@ -4,7 +4,7 @@ const { nanoid } = require('nanoid');
 const axios = require('axios'); // Pastikan untuk menginstal axios jika belum ada
 
 const path = require('path');
-const pathKey = path.resolve(__dirname, 'C:/Users/Falah/Cloud-Computing/serviceaccountkey.json');
+const pathKey = '/account-backend/secret-backend';
 
 
 // Konfigurasi
@@ -85,7 +85,7 @@ async function uploadImage(file) {
 async function predictImage(fileName) {
     try {
         // Kirim request ke backend machine learning service untuk melakukan prediksi
-        const predictionResponse = await axios.post('http://127.0.0.1:3001/predict', {
+        const predictionResponse = await axios.post('https://ml-backend-900098332914.asia-southeast1.run.app', {
             imageId: fileName
         });
 
@@ -123,20 +123,6 @@ async function getPredictionData(predictionId) {
 }
 
 // Fungsi untuk mendapatkan data analisis
-async function getAnalysisData(predictionLabel) {
-    const docId = predictionLabel[0].trim(); // Ambil ID dokumen dari predictionLabel
-    const analysisDoc = await firestore.collection('paddy-disease').doc(docId).get(); // Ambil dokumen berdasarkan ID
-
-    if (!analysisDoc.exists) {
-        console.error('Analysis not found for document ID:', docId);
-        return { error: 'Analysis not found for this prediction label' };
-    }
-
-    // Ambil data analisis dari dokumen
-    const analysisData = analysisDoc.data();
-    return analysisData; // Kembalikan data analisis
-}
-
 async function getAnalysisData(predictionLabel) {
     const docId = predictionLabel[0].trim(); // Ambil ID dokumen dari predictionLabel
     const analysisDoc = await firestore.collection('paddy-disease').doc(docId).get(); // Ambil dokumen berdasarkan ID
