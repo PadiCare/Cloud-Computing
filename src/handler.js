@@ -85,7 +85,7 @@ async function uploadImage(file) {
 async function predictImage(fileName) {
     try {
         // Kirim request ke backend machine learning service untuk melakukan prediksi
-        const predictionResponse = await axios.post('https://ml-backend-900098332914.asia-southeast1.run.app', {
+        const predictionResponse = await axios.post('https://ml-backend-900098332914.asia-southeast1.run.app/predict', {
             imageId: fileName
         });
 
