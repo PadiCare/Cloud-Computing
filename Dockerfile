@@ -14,7 +14,7 @@ COPY . .
 RUN npm install --production && npm install --only=dev
 
 # Menyediakan port yang akan digunakan aplikasi
-EXPOSE 8080
+EXPOSE 8081
 
 # Mengatur perintah default untuk menjalankan aplikasi
 CMD ["npm", "start"]
