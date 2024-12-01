@@ -5,7 +5,7 @@ const Inert = require('@hapi/inert');
 const init = async () => {
   const server = Hapi.server({
     port: 443,
-    host: 'localhost',
+    host: '0.0.0.0',
     routes: {
       cors: {
         origin: ['*'],
