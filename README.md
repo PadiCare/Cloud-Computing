@@ -4,7 +4,7 @@
 
 ## Table of contents
 
-- [GCP Architecture](#GCP Architecture)
+- [GCP Architecture](#GCP_Architecture)
 
 ## GCP Architecture
 <img src= "https://github.com/PadiCare/main-backend-api/blob/main/GCP%20Architecture/GCP%20Architecture.jpg" align="center">
