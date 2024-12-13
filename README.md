@@ -25,3 +25,36 @@ npm run start
 ```javascript
 nodemon start
 
+## Endpoints
+[https://localhost:0.0.0.0](http://localhost:0.0.0.0)
+
+## Get Image Data Padicare
+- URL
+    - `/upload`
+
+- Method
+    - GET
+
+- Response
+    ```json
+    
+
+## Get Prediction Data
+- URL
+    - `/predictions/{predictionId}`
+
+- Method
+    - GET
+
+- Response
+    ```json
+
+## Get Analysis Data
+- URL
+    - `/analysis/{predictionLabel}`
+
+- Method
+    - GET
+
+- Response
+    ```json
